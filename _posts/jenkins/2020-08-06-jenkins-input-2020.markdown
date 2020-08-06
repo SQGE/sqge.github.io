@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "jenkins pipeline input 参数选择发布不通环境"
-subtitle: ""
+subtitle: "jenkins pipeline input 参数选择发布不通环境"
 author: "duanzh"
 header-img: "img/home-bg.jpg"
 header-mask: 0.3
