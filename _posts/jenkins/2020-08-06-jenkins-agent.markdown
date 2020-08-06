@@ -9,9 +9,9 @@ tags:
   - jenkins
 ---
 
+> 本文介绍jenkins pipeline当中如何动态使用 agent label,进行部署构建
 
-
-#### jenkins 动态设置agent lable
+#### jenkins 动态设置agent label
 
 ```
 def agentLabel
