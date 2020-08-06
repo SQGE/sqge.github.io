@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "jenkins pipeline: agent动态设置代理标签"
-subtitle: ""
+subtitle: "jenkins pipeline: agent动态设置代理标签"
 author: "duanzh"
 header-img: "img/home-bg.jpg"
 header-mask: 0.3
