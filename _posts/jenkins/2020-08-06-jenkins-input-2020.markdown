@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "jenkins pipeline input 参数选择发布不通环境"
+title: "jenkins pipeline： input交互输入发布"
 subtitle: "jenkins pipeline input 参数选择发布不通环境"
 author: "duanzh"
 header-img: "img/home-bg.jpg"
@@ -8,6 +8,8 @@ header-mask: 0.3
 tags:
   - jenkins
 ---
+
+> 通过input人工选择,发布服务到不通的环境
 
 ```
 pipeline {
