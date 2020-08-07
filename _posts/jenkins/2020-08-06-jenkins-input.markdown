@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "jenkins pipeline： input交互输入发布"
-subtitle: "jenkins pipeline： input交互输入发布"
+title: "jenkins pipeline：input交互输入发布"
+subtitle: "jenkins pipeline：input交互输入发布"
 author: "duanzh"
 header-img: "img/home-bg.jpg"
 header-mask: 0.3
