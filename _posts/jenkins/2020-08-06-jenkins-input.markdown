@@ -35,16 +35,16 @@ pipeline {
                         choices: ['test', 'uat', 'prd'], description: '选择部署环境')]
 
                         switch("${env.DEPLOY_ENV}"){
-                            case 'prd':
-                                println('deploy prd env')
+                            case 'test':
+                                println('deploy test env')
                                 break;
 
                             case 'uat':
                                 println('deploy uat env')
                                 break;
 
-                            case 'test':
-                                println('deploy test env')
+                            case 'prd':
+                                println('deploy prd env')
                                 break;
                             
                             default:
