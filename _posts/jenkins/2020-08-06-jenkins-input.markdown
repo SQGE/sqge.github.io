@@ -31,7 +31,8 @@ pipeline {
                 timeout(time: 1, unit: 'MINUTES') {
                 script {
                     env.DEPLOY_ENV = input message: '选择部署的环境', ok: 'deploy',
-                        parameters: [choice(name: 'DEPLOY_ENV', choices: ['prd', 'uat', 'test'], description: '选择部署环境')]
+                        parameters: [choice(name: 'DEPLOY_ENV', 
+                        choices: ['test', 'uat', 'prd'], description: '选择部署环境')]
 
                         switch("${env.DEPLOY_ENV}"){
                             case 'prd':
