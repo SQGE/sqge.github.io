@@ -14,7 +14,7 @@ tags:
 > 建议进入容器操作，我尝试过直接在外部执行备份恢复，由于项目多，时间太长，会导致失败
 
 # 一定要先备份当前版本
-# `备份当前的Gitlab，用于更新失败恢复`
+# 备份当前的Gitlab，用于更新失败恢复
 ```
 docker exec -it gitlab bash 
 gitlab-rake gitlab:backup:create
@@ -40,7 +40,7 @@ unpacking backup faile
 docker exec -i gitlab chown -R git.git  /var/opt/gitlab/backups/1594726692_2020_07_14_10.8.7_gitlab_backup.tar
 ```
 
-# `接下来进行升级`
+# 接下来进行升级
 [官方升级文档](https://docs.gitlab.com/ce/policy/maintenance.html#upgrade-recommendations)
 
 
@@ -66,7 +66,7 @@ gitlab/gitlab-ce:12.0.12-ce.0
 gitlab/gitlab-ce:12.10.6-ce.0
 ```
 
-#基本操作流程（`每更新一个版本操作一次，以此类推`）
+#基本操作流程（每更新一个版本操作一次，以此类推）
 
 - 停止gitlab全部服务
 ```
@@ -83,7 +83,7 @@ docker-compose up
 ```
 
 
-# `完整的docker-compose.yml`
+# 完整的docker-compose.yml
 ```
 version: '2'
 services:
@@ -126,7 +126,7 @@ volumes:
     logs:
 ```
 
-gitlab-runner注册
+# gitlab-runner注册
 ```
 docker run  -t -id -v /data/gitlab-runner/config:/etc/gitlab-runner --name gitlab-runner gitlab/gitlab-runner:v12.10.3
 
