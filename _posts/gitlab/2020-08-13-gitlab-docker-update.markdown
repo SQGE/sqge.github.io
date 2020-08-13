@@ -142,3 +142,4 @@ docker exec  -i gitlab-runner \
   --locked="false" \
   --access-level="not_protected"
 ```
+##### 转载请注明出处，本文采用 CC4.0 协议授权
