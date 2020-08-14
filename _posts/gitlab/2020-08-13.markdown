@@ -1,0 +1,13 @@
+---
+layout: post
+title: "test"
+subtitle: "test"
+author: "duanzh"
+header-img: "img/home-bg.jpg"
+header-mask: 0.3
+tags:
+  - gitlab
+---
+
+
+![image.png](img/home-bg.jpg)
