@@ -28,7 +28,7 @@ Nacos集群按照导入[官方监控手册](https://nacos.io/zh-cn/docs/monitor-
 
 出现这种情况请确认默Grafana Datasources Promtheus的数据源名称。
 `我这边是大写，默认官方的模板是小写的数据源。`
-![](/img/Nacos-Grafana/prometheus-nacos.png)
+![](/img/Nacos-Grafana/promethus-granafa.png)
 
 把官方模板修改为你对应的prometheus数据源Name即可，再重新导入一次，显示以下即是正常
 ![](/img/Nacos-Grafana/nacos-grafana-true.png)
