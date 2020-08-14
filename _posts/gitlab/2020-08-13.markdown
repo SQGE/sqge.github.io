@@ -9,5 +9,7 @@ tags:
   - gitlab
 ---
 
+1111
 
-![image.png](img/home-bg.jpg)
+1111
+![image.png](../img/home-bg.jpg)
