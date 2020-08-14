@@ -8,6 +8,7 @@ header-mask: 0.3
 tags:
   - gitlab
 ---
+
 > 本文介绍docker化安装的Gitlab如何跨多版本进行升级
 
 当前版本是`10.8.7`
