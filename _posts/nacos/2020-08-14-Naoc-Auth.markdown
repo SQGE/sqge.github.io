@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "nacos权限分配方案实践"
-subtitle:   "nacos权限控制介绍和使用"
+title:      "nacos 接入grafana不展示数据问题解决"
+subtitle:   "nacos 接入grafana不展示数据问题解决"
 date:       2020-08-14 11:00:00
 author:     "ytduanzh"
 header-img: "img/home-bg.jpg"
@@ -11,50 +11,24 @@ tags:
     - nacos
 ---
 
-> 本文主要介绍我当前Nacos权限控制的设计方案和使用指南.
-nacos 1.2.0之后增加了权限控制， `但是管理方面还是比较简陋，这里分享一下我这边生产实践`
+> 本文介绍Nacos接入Prometheus监控，使用Grafana Dashaboard数据不展示问题解决,这里说一下我解决的过程。
 
+# 问题描述
+Nacos集群按照导入[官方监控手册](https://nacos.io/zh-cn/docs/monitor-guide.html)接入Prometheus,导入[默认官方的Grafana模板](https://github.com/nacos-group/nacos-template/blob/master/nacos-grafana.json),通过Grafana去展示的时候显示如下：
 
-# nacos权限控制
-nacos权限控制分为用户创建、角色创建以及权限管理
+![](/img/Nacos-Grafana/nacos-grafana-error.png)
 
+错误提示`Templating init failed Datasource named prometheus was not found`
+# 问题排查
+经过排查Prometheus查询确认数据正常收集，指标也是正常:
 
-- 用户创建
-可以进行用户的创建、修改和删除
+![](/img/Nacos-Grafana/prometheus-nacos.png)
 
-- 角色创建
-因为Nacos的自带的权限是基于角色来进行分配的，因此需要给创建好的用户绑定一些角色
-- 权限管理
-管理权限。角色创建好以后，就可以给这个角色赋予特定的权限了
+# 问题解决
 
-**以上都摘抄于[官方](https://nacos.io/zh-cn/docs/cluster-mode-quick-start.html)介绍。**
+出现这种情况请确认默Grafana Datasources Promtheus的数据源名称。
+`我这边是大写，默认官方的模板是小写的数据源。`
+![](/img/Nacos-Grafana/prometheus-nacos.png)
 
-# 实践
-我这边主要是按业务组来进行权限分配：
-
-业务组namespace分为以下几个环境：
-- 开发环境
-- 测试环境
-- 预发环境
-- 生产环境
-### 用户列表
-- 创建对应用户
-### 角色管理
-```
-角色名 == 业务组名
-```
-分别创建以下几个权限：
-- 业务组A生产-读
-- 业务组A生产-读写
-- 业务组A非生产-读写
-
-### 权限管理
-- 业务组A生产-读写 -- 绑定生产环境namespace读写
-- 业务组A生产-读 -- 绑定生产环境namespace读
-- 业务组A非生产-读写 -- 绑定所有非生产的namespace
-
-
-# 人员权限分配
-- 业务组A生产-读 --> tony（业务组A成员，需要读取生产配置人员）
-- 业务组A生产-读写  --> tom  (业务组A领导)
-- 业务组A非生产-读写 --> tom  (开放给所有开发人员)
+把官方模板修改为你对应的prometheus数据源Name即可，再重新导入一次，显示以下即是正常
+![](/img/Nacos-Grafana/nacos-grafana-true.png)
