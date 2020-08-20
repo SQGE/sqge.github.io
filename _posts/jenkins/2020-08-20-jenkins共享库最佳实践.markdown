@@ -1,0 +1,105 @@
+---
+layout: post
+title: "jenkins shared libraries最佳实践"
+subtitle: "jenkins shared libraries最佳实践"
+author: "duanzh"
+header-img: "img/home-bg.jpg"
+header-mask: 0.3
+tags:
+  - jenkins
+---
+> 本文介绍什么是jenkins共享库的一个最佳实践，这也是在学习jenkins的使用的时候，一个同学分享的方法，接下我会分享一下具体实践，为什么要使用它们。
+
+Jenkins是当今使用的最常见的持续集成/部署服务器之一。Jenkins可以将持续集成或部署任务表示为由一个或多个`阶段`组成的`管道`，通常写入通常称为`Jenkinsfile`的文件中。Jenkinsfile包含阶段执行的顺序，并且可以包含这些阶段的逻辑。也可以将Jenkinsfile签入源代码管理。
+
+
+
+
+编写`Jenkinsfile`时，它很容易变得肿，最终可能需要数百行代码。
+Jenkins文件没有层次结构或继承的概念，因此必须将任何常用功能或逻辑从一个文件复制到另一个文件，以便共享该逻辑。希望这听起来很糟糕。不用担心，我将向您展示如何使用Jenkins共享库解决此问题。
+
+
+# 什么是jenkins共享库
+Jenkins共享库是用Groovy编写的，可让您创建通用的逻辑集，并在团队/项目/组织之间共享。您可以简单地将一个库加载到Jenkins中，而不用从其他Jenkinsfile中`复制并粘贴`代码，并且Jenkins主服务器上的每个管道作业都可以访问该共享库。
+
+编写共享库时，必须以特定方式构造代码。
+
+目录结构
+共享库存储库的目录结构如下：
+```
+(root)
++- src                     # Groovy source files
+|   +- org
+|       +- foo
+|           +- Bar.groovy  # for org.foo.Bar class
++- vars
+|   +- foo.groovy          # for global 'foo' variable
+|   +- foo.txt             # help for 'foo' variable
++- resources               # resource files (external libraries only)
+|   +- org
+|       +- foo
+|           +- bar.json    # static helper data for org.foo.Bar
+```
+
+- vars
+
+`vars`目录包含Groovy脚本，按照jenkins的说法，这些脚本称为`全局vars`。这些是要在Jenkinsfile中使用的步骤，里面既可以写pipeline结构
+
+- src
+
+`src`目录应类似于标准Java源目录结构。执行管道时，此目录将添加到类路径中。
+
+- resources 
+
+`resources`目录允许libraryResource从外部库中使用步骤来加载相关联的非Groovy文件。当前内部库不支持此功能。
+
+`resources` 一些使用方法可以查看我这篇博客。
+[resources实践博客](https://takingx.com/2020/08/07/jenkins-resources/)
+
+# 为什么您应该在管道中使用Jenkins共享库
+
+想象一下，在您的团队中，您有三个项目都以相同的方式部署代码。您不需要在三个不同的时间编写该逻辑。这意味着，如果流程发生更改，则每个团队都必须去更新其Jenkinsfile来适应更改。这通常包括复制他人所做的事情，然后将代码粘贴到他们的项目中，然后进行一些小的调整以适应他们的项目。
+
+
+使用共享库，只需编写一次用于部署项目的代码，然后将其作为库版本的简单更新提供给所有其他团队。关注点的分离使团队可以将所有精力都放在编写代码上，而不必担心如何编写代码来部署代码，执行自动发布等，从而节省了时间和金钱。
+
+
+共享库的另一个优点是它们可以促进团队之间的协作。有时，团队可能会低下头，却不知道其他人在做什么。这通常导致同一代码被多次写入。共享库可以弥合做类似事情的团队之间的鸿沟，并允许这些团队一起使用共享的代码段，这对他们以及任何其他团队都可以带来好处。
+
+# 最佳实践
+
+> 示例项目地址：https://github.com/SQGE/jenkins-shared-library
+
+此简单示例，仅需要在`项目仓库`，定义一个`yaml`格式的配置文件，模板库会使用的方式把它转化成 map后传给模板库。
+
+### 共享库项目结构
+```
++- vars
+|   +- runPipeline.groovy   # 入口文件
+|   +- pipelineCfg.groovy   # 把yaml 文件转成 map
+|   +- pythonPipeline.grooy # 按照语言去分类的模板库
+```
+### 项目存储库使用的配置
+pipeline.yaml
+```
+type: python
+node: master
+```
+jenkinsfile
+```
+#!groovy   
+@Library('jenkins-shared-library@master') _
+
+runPipeline()
+```
+
+# 结论
+Jenkins共享库是帮助保持Jenkinsfile简洁易读的好方法。
+- 如何编写groovy代码已不再是开发人员的观点。
+- Pipeline.yaml的结构非常灵活，可以将整个数据结构作为输入传递给管道。
+- 代码冗余大大节省了
+##### 转载请注明出处，本文采用 CC4.0 协议授权
+
+##### 参考链接
+http://33s.co/FkPb
+https://blog.opstree.com/2019/09/04/jenkins-pipeline-global-shared-libraries/
