@@ -101,5 +101,7 @@ Jenkins共享库是帮助保持Jenkinsfile简洁易读的好方法。
 ##### 转载请注明出处，本文采用 CC4.0 协议授权
 
 ##### 参考链接
+
 http://33s.co/FkPb
+
 https://blog.opstree.com/2019/09/04/jenkins-pipeline-global-shared-libraries/
