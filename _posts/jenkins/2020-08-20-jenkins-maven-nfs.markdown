@@ -1,4 +1,4 @@
- ---
+---
 layout: post
 title: "jenkins静态slave使用nfs共享maven仓库"
 subtitle: "jenkins静态slave使用nfs共享maven仓库 "
