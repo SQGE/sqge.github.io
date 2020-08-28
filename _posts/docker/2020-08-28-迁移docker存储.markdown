@@ -6,7 +6,7 @@ author: "duanzh"
 header-img: "img/home-bg.jpg"
 header-mask: 0.3
 tags:
-  - gitlab
+  - docker
 ---
 
 > 本文介绍docker默认/var/lib/docker存储路径进行迁移
