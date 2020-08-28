@@ -38,5 +38,5 @@ vim /etc/docker/daemon.json
 ```
 systemctl start docker
 ```
-编辑 /etc/docker/daemon.json 配置文件，如果没有这个文件，那么需要自己创建一个，根据上面的迁移目录，基础配置如下：
+
 ##### 转载请注明出处，本文采用 CC4.0 协议授权
