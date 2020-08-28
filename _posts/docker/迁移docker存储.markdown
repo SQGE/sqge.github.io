@@ -1,0 +1,42 @@
+---
+layout: post
+title: "docker默认存储路径迁移"
+subtitle: "docker默认存储路径迁移"
+author: "duanzh"
+header-img: "img/home-bg.jpg"
+header-mask: 0.3
+tags:
+  - gitlab
+---
+
+> 本文介绍docker默认/var/lib/docker存储路径进行迁移
+
+# 问题描述
+昨天公司内网服务器，一台内网服务器docker不能启动，排查出发现根路径磁盘写满了，这里就记录如何迁移默认存储路径，并进行docker恢复
+
+#### 1.1、创建迁移目录（用来放新数据的目录）
+```
+mkdir -p /data/docker
+```
+#### 1.2、停止docker
+```
+systemctl stop docker
+```
+#### 1.3、同步docker默认存储到新数据目录
+```
+rsync -avz /var/lib/docker/ /data/docker
+```
+#### 1.4、修改docker配置文件制定存储路径
+```
+vim /etc/docker/daemon.json 
+{
+  "registry-mirrors": ["https://xx.mirror.aliyuncs.com"],
+  "data-root": "/data/docker"
+}
+```
+#### 1.2、启动docker (恢复完成)
+```
+systemctl start docker
+```
+编辑 /etc/docker/daemon.json 配置文件，如果没有这个文件，那么需要自己创建一个，根据上面的迁移目录，基础配置如下：
+##### 转载请注明出处，本文采用 CC4.0 协议授权
