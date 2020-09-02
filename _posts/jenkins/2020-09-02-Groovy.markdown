@@ -9,7 +9,7 @@ tags:
   - jenkins
 ---
 
-> 本文介绍Groovy排序方法使用
+> 本文介绍常用的Groovy方法使用
 
 ```
 def list =[1,55,28,9,10,23,16]
@@ -23,6 +23,11 @@ list.sort {a,b ->
 list.sort {a,b ->  
  return b.compareTo(a)
 }
+
+//去重
+def list = [a, b, c, c, c,d,e,e]  
+// [a, b, c, d, e] 
+list.unique()  
 
 ```
 ##### 转载请注明出处，本文采用 CC4.0 协议授权
