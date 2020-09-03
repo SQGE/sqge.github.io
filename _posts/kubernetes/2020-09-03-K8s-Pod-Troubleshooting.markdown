@@ -1,5 +1,3 @@
-
-
 ---
 layout: post
 title: "kubernetes 常用排查Pod方法"
