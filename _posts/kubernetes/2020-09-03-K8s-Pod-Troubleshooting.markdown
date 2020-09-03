@@ -11,7 +11,7 @@ tags:
 
 >本章介绍 Pod 运行异常的排错方法
 
-# 1、日常排错命令
+#### 1、日常排错命令
 ```
 # 查看 Pod 的事件
 kubectl describe pod <pod-name> -n namespace
@@ -24,7 +24,7 @@ kubectl logs <pod-name> [-c <container-name>]
 ```
 这些事件和日志通常都会有助于排查 Pod 发生的问题。
 
-# 2、Pod 一直处于 Pending 状态
+#### 2、Pod 一直处于 Pending 状态
 `Pending` 说明 Pod 还没有调度到某个 Node 上面。可以通过` kubectl describe pod <pod-name> `命令查看到当前 Pod 的事件，进而判断为什么没有调度。
 
 可能的原因包括
@@ -32,7 +32,7 @@ kubectl logs <pod-name> [-c <container-name>]
 - HostPort 端口已被占用，通常推荐使用 Service 对外开放服务端口
 
 
-# 3、Pod 一直处于 Waiting 或 ContainerCreating 状态
+#### 3、Pod 一直处于 Waiting 或 ContainerCreating 状态
 首先还是通过 kubectl describe pod <pod-name> 命令查看到当前 Pod 的事件。可能的原因包括：
 
 - 镜像拉取失败，比如：
@@ -45,7 +45,7 @@ kubectl logs <pod-name> [-c <container-name>]
   - 无法分配 IP 地址;  
  - 容器无法启动，需要检查是否打包了正确的镜像或者是否配置了正确的容器参数；
 
-# 3、Pod 处于 ImagePullBackOff 状态
+#### 4、Pod 处于 ImagePullBackOff 状态
 CrashLoopBackOff 状态说明容器曾经启动了，但又异常退出了。此时 Pod 的 RestartCounts 通常是大于 0 的，可以先查看一下容器的日志
 
 ```
@@ -73,7 +73,7 @@ ssh <username>@<node-name>
 ```
 
 
-# 4、Pod 处于 Error 状态
+#### 5、Pod 处于 Error 状态
 通常处于 Error 状态说明 Pod 启动过程中发生了错误。常见的原因包括
 
 -  依赖的 ConfigMap、Secret 或者 PV 等不存在
@@ -81,7 +81,7 @@ ssh <username>@<node-name>
 -  违反集群的安全策略，比如违反了 PodSecurityPolicy 等
 -  容器无权操作集群内的资源，比如开启 RBAC 后，需要为 ServiceAccount 配置角色绑定
 
-# 5、Pod 处于 Terminating 或 Unknown 状态
+#### 6、Pod 处于 Terminating 或 Unknown 状态
 
 从 v1.5 开始，Kubernetes 不会因为 Node 失联而删除其上正在运行的 Pod，而是将其标记为 Terminating 或 Unknown 状态。想要删除这些状态的 Pod 有三种方法：
 
