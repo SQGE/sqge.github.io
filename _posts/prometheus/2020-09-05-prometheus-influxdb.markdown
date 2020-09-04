@@ -79,7 +79,7 @@ fields
   value = 308
 ```
 
-##### [完整配置： Docker-compose](https://github.com/lework/Docker-compose-file/blob/master/prometheus/docker-compose-influxdb.yaml)
+##### [完整配置： docker-compose.yml](https://github.com/lework/Docker-compose-file/blob/master/prometheus/docker-compose-influxdb.yaml)
 
 ```
 version: '3'
@@ -174,5 +174,4 @@ remote_read:
 ##### 相关资料:
 https://docs.influxdata.com/influxdb/v1.8/supported_protocols/prometheus/
 https://github.com/lework/Docker-compose-file/blob/master/prometheus/docker-compose-influxdb.yaml
-
 ##### 转载请注明出处，本文采用 CC4.0 协议授权
