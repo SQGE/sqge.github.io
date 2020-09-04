@@ -129,6 +129,48 @@ services:
     restart: always
 ```
 
+#### [prometheus-influxdb.yml](https://github.com/lework/Docker-compose-file/blob/master/prometheus/prometheus/etc/prometheus-influxdb.yml)
+```
+# global config
+global:
+  scrape_interval:     15s # 拉取targets的默认时间间隔,默认是1m.
+  scrape_timeout:      10s # 拉去targets的默认超时时间, 默认10s
+  evaluation_interval: 15s # 执行rules的时间间隔,默认是1m.
+
+  external_labels:
+    monitor: 'dev-monitor'
+
+# Alertmanager configuration
+alerting:
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "alerts/*.rules"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+    - targets: ['localhost:9090']
+      labels:
+        group: 'prometheus'
+  - job_name: 'influxdb'
+    static_configs:
+    - targets: ['influxdb:8086']
+
+remote_write:
+  - url: "http://influxdb:8086/api/v1/prom/write?db=prometheus&u=prometheus&p=prompass"
+
+remote_read:
+  - url: "http://influxdb:8086/api/v1/prom/read?db=prometheus&u=prometheus&p=prompass"
+```
+
 ##### 相关资料:
 https://docs.influxdata.com/influxdb/v1.8/supported_protocols/prometheus/
 https://github.com/lework/Docker-compose-file/blob/master/prometheus/docker-compose-influxdb.yaml
