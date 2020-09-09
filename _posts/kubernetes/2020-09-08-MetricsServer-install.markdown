@@ -224,6 +224,7 @@ build-03   2782m        69%    4262Mi          55%
 
 #### 相关文档：
 https://github.com/kubernetes-sigs/metrics-server
+
 https://www.qikqiak.com/post/install-metrics-server/
 
 ##### 转载请注明出处，本文采用 CC4.0 协议授权
