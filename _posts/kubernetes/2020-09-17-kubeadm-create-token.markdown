@@ -9,6 +9,7 @@ tags:
   - kubernetes
 ---
 
+
 >本文介绍kubeadm token过期后重新生成token，默认token的有效期为24小时，当过期之后，该token就不可用了。
 
 ## # 解决办法
