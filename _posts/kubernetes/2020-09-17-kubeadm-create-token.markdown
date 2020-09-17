@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "kubeadm 24h过期后，重新生成的token"
-subtitle: "kubeadm 24h过期后，重新生成的token
+subtitle: "kubeadm 24h过期后，重新生成的token"
 author: "duanzh"
 header-img: "img/home-bg.jpg"
 header-mask: 0.3
